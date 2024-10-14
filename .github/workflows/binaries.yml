@@ -15,7 +15,7 @@ jobs:
     steps:
       # We use older versions of the checkout and cache actions, those work with the LIBC version of this container
       # We also can't use the setup-python action for this reason - it depends on a newer LIBC
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: actions/cache@v3
         with:
