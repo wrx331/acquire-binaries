@@ -38,7 +38,7 @@ jobs:
           strip build/x86_64-unknown-linux-gnu/release/install/acquire
 
       - name: Verify binary
-        run: build/x86_64-unknown-linux-gnu/release/install/acquire --version
+        run: build/x86_64-unknown-linux-gnu/release/install/acquire --help
 
       - uses: actions/upload-artifact@v3
         with:
@@ -94,7 +94,7 @@ jobs:
           strip build/x86_64-unknown-linux-musl/release/install/acquire
 
       - name: Verify binary
-        run: build/x86_64-unknown-linux-musl/release/install/acquire --version
+        run: build/x86_64-unknown-linux-musl/release/install/acquire --help
 
       - uses: actions/upload-artifact@v3
         with:
@@ -132,7 +132,14 @@ jobs:
           strip build/x86_64-pc-windows-msvc/release/install/acquire.exe
 
       - name: Verify binary
-        run: build/x86_64-pc-windows-msvc/release/install/acquire.exe --version
+        run: build/x86_64-pc-windows-msvc/release/install/acquire.exe --help
+
+      - name: Compress binary
+        uses: crazy-max/ghaction-upx@v3.0.0
+          version: latest
+          files: |
+            build/x86_64-pc-windows-msvc/release/install/acquire.exe
+          args: --ultra-brute
 
       - uses: actions/upload-artifact@v3
         with:
@@ -175,7 +182,7 @@ jobs:
           strip build/universal2-apple-darwin/release/install/acquire
 
       - name: Verify binary
-        run: build/universal2-apple-darwin/release/install/acquire --version
+        run: build/universal2-apple-darwin/release/install/acquire --help
 
       - uses: actions/upload-artifact@v3
         with:
