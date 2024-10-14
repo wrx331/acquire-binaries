@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: |
             ~/.cache/pyoxidizer/
@@ -38,7 +38,7 @@ jobs:
       - name: Verify binary
         run: build/x86_64-unknown-linux-gnu/release/install/acquire --help
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: acquire-linux
           path: build/x86_64-unknown-linux-gnu/release/install/*
@@ -58,7 +58,7 @@ jobs:
           curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
           echo "PATH=$HOME/.cargo/bin:$PATH" >> $GITHUB_ENV
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: |
             ~/.cache/pyoxidizer/
@@ -92,7 +92,7 @@ jobs:
       - name: Verify binary
         run: build/x86_64-unknown-linux-musl/release/install/acquire --help
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: acquire-linux-musl
           path: build/x86_64-unknown-linux-musl/release/install/*
@@ -103,7 +103,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: |
             ~\AppData\Local\pyoxidizer\
@@ -138,7 +138,7 @@ jobs:
             build/x86_64-pc-windows-msvc/release/install/acquire.exe
           args: --ultra-brute
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: acquire-windows
           path: build/x86_64-pc-windows-msvc/release/install/*
@@ -149,7 +149,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: |
             ~/Library/Caches/pyoxidizer/
@@ -192,7 +192,7 @@ jobs:
       - name: Verify binary
         run: build/universal2-apple-darwin/release/install/acquire --help
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: acquire-macos
           path: build/universal2-apple-darwin/release/install/*
