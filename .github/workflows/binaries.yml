@@ -1,5 +1,8 @@
 name: Build PyOxidizer Binary
 
+on:
+  push
+
 jobs:
   build-linux-gnu:
     name: Build Linux (GNU)
