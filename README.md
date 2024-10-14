@@ -1,5 +1,5 @@
 # Acquire Binaries
-Binaries for [acqiure](https://github.com/fox-it/acquire) from Fox-IT.
+Binaries workflow for [acquire](https://github.com/fox-it/acquire) from Fox-IT.
 
 ## Copyright and license
 
