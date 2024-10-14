@@ -136,6 +136,7 @@ jobs:
 
       - name: Compress binary
         uses: crazy-max/ghaction-upx@v3
+        with:
           version: latest
           files: |
             build/x86_64-pc-windows-msvc/release/install/acquire.exe
