@@ -34,7 +34,7 @@ jobs:
         run: |
           mkdir -p build/lib/dissect/target/plugins
           /opt/python/cp39-cp39/bin/target-build-pluginlist > build/lib/dissect/target/plugins/_pluginlist.py
-          /opt/python/cp39-cp39/bin/pyoxidizer build --release --target-triple x86_64-unknown-linux-gnu --var flavor standalone --var version $VERSION
+          /opt/python/cp39-cp39/bin/pyoxidizer build --release --target-triple x86_64-unknown-linux-gnu --var flavor standalone --var version ${{ env.VERSION }}
           strip build/x86_64-unknown-linux-gnu/release/install/acquire
 
       - name: Verify binary
@@ -90,7 +90,7 @@ jobs:
         run: |
           mkdir -p build/lib/dissect/target/plugins
           /opt/python/cp39-cp39/bin/target-build-pluginlist > build/lib/dissect/target/plugins/_pluginlist.py
-          pyoxidizer build --release --target-triple x86_64-unknown-linux-musl --var flavor standalone --var version $VERSION
+          pyoxidizer build --release --target-triple x86_64-unknown-linux-musl --var flavor standalone --var version ${{ env.VERSION }}
           strip build/x86_64-unknown-linux-musl/release/install/acquire
 
       - name: Verify binary
@@ -128,7 +128,7 @@ jobs:
         run: |
           mkdir -p build/lib/dissect/target/plugins
           target-build-pluginlist > build/lib/dissect/target/plugins/_pluginlist.py
-          pyoxidizer build --release --target-triple x86_64-pc-windows-msvc --var flavor standalone_static --var version $VERSION
+          pyoxidizer build --release --target-triple x86_64-pc-windows-msvc --var flavor standalone_static --var version ${{ env.VERSION }}
           strip build/x86_64-pc-windows-msvc/release/install/acquire.exe
 
       - name: Verify binary
@@ -166,8 +166,8 @@ jobs:
         run: |
           mkdir -p build/lib/dissect/target/plugins
           target-build-pluginlist > build/lib/dissect/target/plugins/_pluginlist.py
-          pyoxidizer build --release --target-triple x86_64-apple-darwin --var flavor standalone --var version $VERSION
-          pyoxidizer build --release --target-triple aarch64-apple-darwin --var flavor standalone --var version $VERSION
+          pyoxidizer build --release --target-triple x86_64-apple-darwin --var flavor standalone --var version ${{ env.VERSION }}
+          pyoxidizer build --release --target-triple aarch64-apple-darwin --var flavor standalone --var version ${{ env.VERSION }}
 
           mkdir -p build/universal2-apple-darwin/release/install
           cp -r build/x86_64-apple-darwin/release/install/* build/universal2-apple-darwin/release/install/
