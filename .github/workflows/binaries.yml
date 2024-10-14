@@ -13,8 +13,6 @@ jobs:
     container: quay.io/pypa/manylinux_2_28_x86_64
 
     steps:
-      # We use older versions of the checkout and cache actions, those work with the LIBC version of this container
-      # We also can't use the setup-python action for this reason - it depends on a newer LIBC
       - uses: actions/checkout@v4
 
       - uses: actions/cache@v3
@@ -48,14 +46,12 @@ jobs:
   build-linux-musl:
     name: Build Linux (musl)
     runs-on: ubuntu-latest
-    container: quay.io/pypa/manylinux2014_x86_64
+    container: quay.io/pypa/musllinux_1_2_x86_64
     env:
       musl_version: 1.2.4
 
     steps:
-      # We use older versions of the checkout and cache actions, those work with the LIBC version of this container
-      # We also can't use the setup-python action for this reason - it depends on a newer LIBC
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Rust
         run: |
