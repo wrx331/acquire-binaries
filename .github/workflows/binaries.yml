@@ -10,7 +10,7 @@ jobs:
   build-linux-gnu:
     name: Build Linux (GNU)
     runs-on: ubuntu-latest
-    container: openturns/manylinux2014_x86_64
+    container: quay.io/pypa/manylinux_2_28_x86_64
 
     steps:
       # We use older versions of the checkout and cache actions, those work with the LIBC version of this container
