@@ -1,6 +1,10 @@
 # Acquire Binaries
 Windows, Linux and Mac OS binaries for [acquire](https://github.com/fox-it/acquire).
 
+**PLEASE BE AWARE**
+
+These binaries are not well tested and this repository is not associated with Fox-IT or NCC Group Plc.
+
 ## Copyright and license
 
 Dissect is released as open source by Fox-IT (<https://www.fox-it.com>) part of NCC Group Plc
