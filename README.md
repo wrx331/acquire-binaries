@@ -3,7 +3,7 @@ Windows, Linux and Mac OS binaries for [acquire](https://github.com/fox-it/acqui
 
 **PLEASE BE AWARE**
 
-These binaries are not well tested and this repository is not associated with Fox-IT or NCC Group Plc.
+These binaries are not well tested and this repository is not associated with Fox-IT or NCC Group Plc under any circumstances.
 
 ## Copyright and license
 
