@@ -1,15 +1,6 @@
 # Acquire Binaries
-Windows, Linux and Mac OS binaries for [acquire](https://github.com/fox-it/acquire).
+Standalone Windows, Linux and MacOS binaries for Fox-IT's [acquire](https://github.com/fox-it/acquire) tool.
 
-**PLEASE BE AWARE**
+**PLEASE BE AWARE!**
 
-These binaries are not well tested and this repository is not associated with Fox-IT or NCC Group Plc under any circumstances.
-
-## Copyright and license
-
-Dissect is released as open source by Fox-IT (<https://www.fox-it.com>) part of NCC Group Plc
-(<https://www.nccgroup.com>).
-
-Developed by the Dissect Team (<dissect@fox-it.com>) and made available at <https://github.com/fox-it/acquire>.
-
-License terms: AGPL3 (<https://www.gnu.org/licenses/agpl-3.0.html>). For more information, see the LICENSE file.
+These binaries are not well tested and this repository is not associated with Fox-IT or NCC Group Plc under any circumstances. Please see the original repository for [copyright and license](https://github.com/fox-it/acquire#copyright-and-license) informations.
