@@ -17,41 +17,7 @@ env:
   VERSION: 3.19
 
 jobs:
-  build-linux-gnu:
-    name: Build Linux (GNU)
-    runs-on: ubuntu-latest
-    container: quay.io/pypa/manylinux_2_28_x86_64
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/pyoxidizer/
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-          key: linux-cache
-
-      - name: Install dependencies
-        run: /opt/python/cp39-cp39/bin/pip install pyoxidizer dissect
-
-      - name: Build binary
-        run: |
-          mkdir -p build/lib/dissect/target/plugins
-          /opt/python/cp39-cp39/bin/target-build-pluginlist > build/lib/dissect/target/plugins/_pluginlist.py
-          /opt/python/cp39-cp39/bin/pyoxidizer build --release --target-triple x86_64-unknown-linux-gnu --var flavor standalone --var version ${{ env.VERSION }}
-          strip build/x86_64-unknown-linux-gnu/release/install/acquire
-
-      - name: Verify binary
-        run: build/x86_64-unknown-linux-gnu/release/install/acquire --help
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: acquire-linux
-          path: build/x86_64-unknown-linux-gnu/release/install/*
+  
 
   build-linux-musl:
     name: Build Linux (musl)
@@ -100,109 +66,9 @@ jobs:
           strip build/x86_64-unknown-linux-musl/release/install/acquire
 
       - name: Verify binary
-        run: build/x86_64-unknown-linux-musl/release/install/acquire --help
+        run: build/x86_64-unknown-linux-musl/release/install/target-shell --help
 
       - uses: actions/upload-artifact@v4
         with:
           name: acquire-linux-musl
           path: build/x86_64-unknown-linux-musl/release/install/*
-
-  build-windows:
-    name: Build Windows
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~\AppData\Local\pyoxidizer\
-            ~\.cargo\bin\
-            ~\.cargo\registry\index\
-            ~\.cargo\registry\cache\
-            ~\.cargo\git\db\
-          key: windows-cache
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.9'
-
-      - name: Install dependencies
-        run: pip install pyoxidizer dissect
-
-      - name: Build binary
-        run: |
-          mkdir -p build/lib/dissect/target/plugins
-          target-build-pluginlist > build/lib/dissect/target/plugins/_pluginlist.py
-          pyoxidizer build --release --target-triple x86_64-pc-windows-msvc --var flavor standalone_static --var version ${{ env.VERSION }}
-          strip build/x86_64-pc-windows-msvc/release/install/acquire.exe
-
-      - name: Verify binary
-        run: build/x86_64-pc-windows-msvc/release/install/acquire.exe --help
-
-      - name: Compress binary
-        uses: crazy-max/ghaction-upx@v3
-        with:
-          version: latest
-          files: |
-            build/x86_64-pc-windows-msvc/release/install/acquire.exe
-          args: --ultra-brute
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: acquire-windows
-          path: build/x86_64-pc-windows-msvc/release/install/*
-
-  build-macos:
-    name: Build macOS
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/Library/Caches/pyoxidizer/
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-          key: macos-cache
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.9'
-
-      - name: Install dependencies
-        run: pip install pyoxidizer dissect
-
-      - name: Install MacOS SDK
-        env:
-          MACOSX_SDK_VERSION: 11.3
-          CMAKE_OSX_SYSROOT: /Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX${{ env.MACOSX_SDK_VERSION }}.sdk
-        run: |
-          curl -L -O --connect-timeout 5 --max-time 10 --retry 5  --retry-delay 0 --retry-max-time 40 --retry-connrefused --retry-all-errors https://github.com/phracker/MacOSX-SDKs/releases/download/${{ env.MACOSX_SDK_VERSION }}/MacOSX${{ env.MACOSX_SDK_VERSION }}.sdk.tar.xz
-          tar -xf MacOSX${{ env.MACOSX_SDK_VERSION }}.sdk.tar.xz -C "$(dirname ${{ env.CMAKE_OSX_SYSROOT }})"
-
-          plutil -replace MinimumSDKVersion -string ${{ env.MACOSX_SDK_VERSION }} /Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Info.plist
-          plutil -replace DTSDKName -string macosx${{ env.MACOSX_SDK_VERSION }}internal /Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Info.plist
-
-      - name: Build binary
-        run: |
-          mkdir -p build/lib/dissect/target/plugins
-          target-build-pluginlist > build/lib/dissect/target/plugins/_pluginlist.py
-          pyoxidizer build --release --target-triple x86_64-apple-darwin --var flavor standalone --var version ${{ env.VERSION }}
-          pyoxidizer build --release --target-triple aarch64-apple-darwin --var flavor standalone --var version ${{ env.VERSION }}
-
-          mkdir -p build/universal2-apple-darwin/release/install
-          cp -r build/x86_64-apple-darwin/release/install/* build/universal2-apple-darwin/release/install/
-          lipo -create build/x86_64-apple-darwin/release/install/acquire build/aarch64-apple-darwin/release/install/acquire -output build/universal2-apple-darwin/release/install/acquire
-          strip build/universal2-apple-darwin/release/install/acquire
-
-      - name: Verify binary
-        run: build/universal2-apple-darwin/release/install/acquire --help
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: acquire-macos
-          path: build/universal2-apple-darwin/release/install/*
