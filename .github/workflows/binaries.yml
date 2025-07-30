@@ -1,7 +1,26 @@
 name: Build PyOxidizer Binary
 
 on:
-  push
+  workflow_dispatch:
+  inputs:
+    logLevel:
+      description: '日志级别' # 在手动触发时，输入框的描述
+      required: true
+      default: 'warning' # 默认值
+      type: choice
+      options:
+      - info
+      - warning
+      - debug
+    环境:
+      description: '部署环境'
+      required: false
+      default: '开发'
+      type: environment # 这是一个环境选择器
+    自定义消息:
+      description: '一个自定义的字符串消息'
+      required: false
+      type: string
 
 env:
   VERSION: 3.19
