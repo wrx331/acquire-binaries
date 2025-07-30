@@ -12,7 +12,7 @@ def make_exe():
     python_config.run_module = "dissect.target.tools.shell"
 
     exe = dist.to_python_executable(
-        name="acquire",
+        name="target-shell",
         packaging_policy=policy,
         config=python_config,
     )
