@@ -9,7 +9,7 @@ def make_exe():
     python_config = dist.make_python_interpreter_config()
     python_config.oxidized_importer = True
     python_config.filesystem_importer = False
-    python_config.run_module = "acquire.acquire"
+    python_config.run_module = "dissect.target.tools.shell"
 
     exe = dist.to_python_executable(
         name="acquire",
@@ -20,24 +20,7 @@ def make_exe():
 
     # The default dependency list of acquire doesn't include enough, and full includes some that are hard to package
     pip_args = [
-        "acquire",
-        "dissect.cstruct",
-        "dissect.eventlog",
-        "dissect.evidence",
-        "dissect.extfs",
-        "dissect.fat",
-        "dissect.ffs",
-        "dissect.hypervisor",
-        "dissect.ntfs",
-        "dissect.regf",
-        "dissect.sql",
-        "dissect.squashfs",
-        "dissect.target",
-        "dissect.util",
-        "dissect.vmfs",
-        "dissect.volume",
-        "dissect.xfs",
-        "minio",
+        "dissect.target"
     ]
 
     # If you want to build acquire from the local source directory, uncomment this and remove "acquire" from pip_args
