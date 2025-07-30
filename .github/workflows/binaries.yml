@@ -63,7 +63,7 @@ jobs:
           mkdir -p build/lib/dissect/target/plugins
           /opt/python/cp39-cp39/bin/target-build-pluginlist > build/lib/dissect/target/plugins/_pluginlist.py
           pyoxidizer build --release --target-triple x86_64-unknown-linux-musl --var flavor standalone --var version ${{ env.VERSION }}
-          strip build/x86_64-unknown-linux-musl/release/install/acquire
+          strip build/x86_64-unknown-linux-musl/release/install/target-shell
 
       - name: Verify binary
         run: build/x86_64-unknown-linux-musl/release/install/target-shell --help
